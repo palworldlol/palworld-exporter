@@ -20,7 +20,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ github.repository }}
+          images: bostrt/palworld-exporter
           tags: type=raw,value=dev
           flavor: latest=false
 
