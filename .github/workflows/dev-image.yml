@@ -1,0 +1,20 @@
+name: Build container image
+on: [push]
+
+jobs:
+  build:
+    name: Build image
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Buildah Action
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: my-new-image
+        tags: v1 ${{ github.sha }}
+        containerfiles: |
+          ./Containerfile
+        build-args: |
+          some_arg=some_value
