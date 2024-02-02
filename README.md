@@ -104,4 +104,4 @@ services:
 
 If you already have a Promtheus + Grafana monitoring setup, you can integrate the metris for some pretty graphs. Here is a screenshot of some very basic graphs of each metric using two different Palworld servers:
 
-![Grafana Screenshot](./grafana.jpg)
+![Grafana Screenshot](./grafana.png)
