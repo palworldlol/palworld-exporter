@@ -1,0 +1,68 @@
+[project]
+name = "palworld-exporter"
+version = "0.0.1"
+description = "Prometheus exporter for Palword Server"
+readme = "README.md"
+requires-python = ">=3.7"
+
+license = { file = "LICENSE" }
+keywords = ["palworld", "prometheus", "exporter"]
+
+authors = [
+    { name = "Robert Bost", email = "bostrt@gmail.com" },
+]
+
+maintainers = [
+    { name = "Robert Bost", email = "bostrt@gmail.com" },
+]
+
+# Classifiers help users find your project by categorizing it.
+#
+# For a list of valid classifiers, see https://pypi.org/classifiers/
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+
+    "License :: OSI Approved :: MIT License",
+
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+
+    "Topic :: System :: Monitoring",
+    "Topic :: Games/Entertainment",
+]
+
+dependencies = [ # Optional
+    "click>=8",
+    "click-loglevel>=0.5",
+    "prometheus-client>=0.19,<0.20",
+    "requests>=2,<3",
+    "rcon@git+https://github.com/ttk1/py-rcon.git@v1.3.0",
+]
+
+[project.optional-dependencies]
+dev = ["check-manifest"]
+test = ["flake8", "coverage"]
+
+[project.urls]
+"Homepage" = "https://github.com/bostrt/palworld-exporter"
+"Bug Reports" = "https://github.com/bostrt/palworld-exporter/issues"
+#"Funding" = "https://donate.pypi.org"
+#"Say Thanks!" = "http://saythanks.io/to/example"
+"Source" = "https://github.com/bostrt/palworld-exporter/"
+
+[project.scripts]
+palworld_exporter = "palworld_exporter.main:main"
+
+[build-system]
+# These are the assumed default build requirements from pip:
+# https://pip.pypa.io/en/stable/reference/pip/#pep-517-and-518-support
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"

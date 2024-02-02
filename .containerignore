@@ -1,0 +1,4 @@
+v/
+.git/
+.vscode/
+*.egg-info/
