@@ -12,10 +12,10 @@ from palworld_exporter.exporter import PalworldMetrics
 @click.option('--rcon-port', default=25575, help='RCON Port', show_default=True, envvar='RCON_PORT', type=int)
 @click.option('--rcon-password', default='', help='RCON password', show_default='None', envvar='RCON_PASSWORD')
 @click.option('--poll-interval', default=5, help='How often to poll Palworld Server (seconds)', show_default=True, envvar='POLL_INTERVAL', type=int)
-@click.option('--listen-address', default='0.0.0.0', help='Hostname or IP Address for exporter to listen on', show_default=True)
-@click.option('--listen-port', default=9877, help='Port for exporter to listen on', show_default=True, type=int)
-@click.option('--log-level', type=LogLevel(), default='INFO', help='Set logging level', show_default=True)
-@click.option('--ignore-logging-in', is_flag=True, default=True, help='Ignore players actively logging in that temporarily have no Player UID')
+@click.option('--listen-address', default='0.0.0.0', help='Hostname or IP Address for exporter to listen on', envvar='LISTEN_ADDRESS', show_default=True)
+@click.option('--listen-port', default=9877, help='Port for exporter to listen on', show_default=True, envvar='LISTEN_PORT', type=int)
+@click.option('--log-level', type=LogLevel(), default='INFO', help='Set logging level', envvar='LOG_LEVEL', show_default=True)
+@click.option('--ignore-logging-in', is_flag=True, default=True, envvar='IGNORE_LOGGING_IN', help='Ignore players actively logging in that temporarily have no Player UID')
 def main(rcon_host: str,
          rcon_port: int,
          rcon_password: str,
