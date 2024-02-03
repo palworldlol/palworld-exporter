@@ -5,6 +5,7 @@ import time
 from prometheus_client import Gauge
 
 from palworld_exporter.collectors.rcon_collector import RCONCollector
+from palworld_exporter.collectors.save_collector import SaveCollector
 
 info_re = re.compile(r"\[v(?P<version>.*?)\](?P<name>.*$)")
 
@@ -15,14 +16,21 @@ class PalworldMetrics:
     application metrics into Prometheus metrics.
     """
 
-    def __init__(self, rcon_host: str, rcon_port: int, rcon_password: str, polling_interval_seconds: int, ignore_logging_in: bool):
+    def __init__(self,
+                 rcon_host: str,
+                 rcon_port: int,
+                 rcon_password: str,
+                 polling_interval_seconds: int,
+                 save_directory: str,
+                 ignore_logging_in: bool):
         self.rcon_host = rcon_host
         self.rcon_port = rcon_port
         self.rcon_password = rcon_password
         self.polling_interval_seconds = polling_interval_seconds
+        self.save_directory = save_directory
         self.ignore_logging_in = ignore_logging_in
 
-        # Prometheus metrics to collect
+        # Palworld server runtime metrics collected by RCON
         self.player_count = Gauge(
             'palworld_player_count', 'Current player count')
         self.player_info = Gauge('palworld_player', 'Palworld player information', labelnames=[
@@ -32,6 +40,10 @@ class PalworldMetrics:
         self.palworld_up = Gauge(
             'palworld_up', 'Was last scrape of Palworld metrics successful')
 
+        # Palworld server save file metrics collected from disk
+        self.player_save_count = Gauge(
+            'palworld_player_save_count', 'Number of player save files')
+
     def run_metrics_loop(self):
         """Metrics fetching loop"""
         while True:
@@ -39,6 +51,10 @@ class PalworldMetrics:
             time.sleep(self.polling_interval_seconds)
 
     def fetch(self):
+        self._rcon_fetch()
+        self._save_info_fetch()
+
+    def _rcon_fetch(self):
         """
         Get metrics from application and refresh Prometheus metrics with
         new values.
@@ -81,3 +97,14 @@ class PalworldMetrics:
             logging.exception(e)
         finally:
             self.palworld_up.set(success)
+
+    def _save_info_fetch(self):
+        if not self.save_directory:
+            # No save directory specified. Skip.
+            return
+
+        try:
+            sc = SaveCollector(self.save_directory)
+            self.player_save_count.set(sc.player_save_count())
+        except FileNotFoundError as e:
+            logging.error(e)

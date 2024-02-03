@@ -14,6 +14,7 @@ from palworld_exporter.exporter import PalworldMetrics
 @click.option('--poll-interval', default=5, help='How often to poll Palworld Server (seconds)', show_default=True, envvar='POLL_INTERVAL', type=int)
 @click.option('--listen-address', default='0.0.0.0', help='Hostname or IP Address for exporter to listen on', envvar='LISTEN_ADDRESS', show_default=True)
 @click.option('--listen-port', default=9877, help='Port for exporter to listen on', show_default=True, envvar='LISTEN_PORT', type=int)
+@click.option('--save-directory', default=None, envvar='SAVE_DIRECTORY', help='Path to directory contain all .sav files (e.g. Pal/Saved/SaveGames/0/2FCD4.../)', show_default='None', type=click.Path(exists=True, dir_okay=True, file_okay=False))
 @click.option('--log-level', type=LogLevel(), default='INFO', help='Set logging level', envvar='LOG_LEVEL', show_default=True)
 @click.option('--ignore-logging-in', is_flag=True, default=True, envvar='IGNORE_LOGGING_IN', help='Ignore players actively logging in that temporarily have no Player UID')
 def main(rcon_host: str,
@@ -22,14 +23,17 @@ def main(rcon_host: str,
          poll_interval: int,
          listen_address: str,
          listen_port: int,
+         save_directory: str,
          log_level: int,
          ignore_logging_in: bool):
+
     app_metrics = PalworldMetrics(
         rcon_host=rcon_host,
         rcon_port=rcon_port,
         rcon_password=rcon_password,
         polling_interval_seconds=poll_interval,
-        ignore_logging_in=True
+        save_directory=save_directory,
+        ignore_logging_in=ignore_logging_in
     )
 
     logging.basicConfig(format='%(asctime)s.%(msecs)03d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',

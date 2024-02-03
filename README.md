@@ -1,5 +1,8 @@
 # Prometheus Exporter for Palworld Server
 
+Developed by https://palworld.lol/
+
+
 This project contains a [Prometheus Exporter](https://prometheus.io/docs/instrumenting/exporters/) for [Palworld](https://store.steampowered.com/app/1623730/Palworld/) servers to monitor the following metrics:
 
 | name | description | labels | metric type |
@@ -7,12 +10,13 @@ This project contains a [Prometheus Exporter](https://prometheus.io/docs/instrum
 | `palworld_player_count` | The current number of players on given server | no extra labels | Gauge |
 | `palworld_player` | A player currently logged into the server | Character name, Player UID, and Steam ID | Gauge |
 | `palworld_up` | Indicator if last metric scrape was successful | no extra labels | Gauge |
+| `palworld_player_save_count` | Number of player save files on disk. Only included if `--save-directory` specified. | no extra labels | Gauge |
 
 *For more information of [Gauges see here](https://prometheus.io/docs/concepts/metric_types/#gauge).*
 
 # Options
 
-```
+```shell
 $ palworld_exporter --help
 Usage: palworld_exporter [OPTIONS]
 
@@ -27,6 +31,8 @@ Options:
                                   listen on  [default: 0.0.0.0]
   --listen-port INTEGER           Port for exporter to listen on  [default:
                                   9877]
+  --save-directory DIRECTORY      Path to directory contain all .sav files
+                                  (e.g. Pal/Saved/SaveGames/0/2FCD4.../)
   --log-level [NOTSET|DEBUG|INFO|WARNING|ERROR|CRITICAL]
                                   Set logging level  [default: INFO]
   --ignore-logging-in             Ignore players actively logging in that
@@ -42,6 +48,7 @@ Environment Variables are also available for each option above:
 - `POLL_INTERVAL`
 - `LISTEN_ADDRESS`
 - `LISTEN_PORT`
+- `SAVE_DIRECTORY`
 - `LOG_LEVEL`
 - `IGNORE_LOGGING_IN`
 
