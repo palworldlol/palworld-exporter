@@ -1,6 +1,11 @@
 # Prometheus Exporter for Palworld Server
 
-Developed by https://palworld.lol/
+*Developed by https://palworld.lol/*
+
+![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/bostrt/palworld-exporter/latest?logo=docker&label=Docker)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/bostrt/palworld-exporter/latest?logo=docker)
+![Docker Pulls](https://img.shields.io/docker/pulls/bostrt/palworld-exporter?logo=docker)
+![GitHub License](https://img.shields.io/github/license/palworldlol/palworld-exporter)
 
 
 This project contains a [Prometheus Exporter](https://prometheus.io/docs/instrumenting/exporters/) for [Palworld](https://store.steampowered.com/app/1623730/Palworld/) servers to monitor the following metrics:
