@@ -113,6 +113,25 @@ services:
          - ./palworld:/palworld/:z
 ```
 
+# Example metric output
+```
+# HELP palworld_player_count Current player count
+# TYPE palworld_player_count gauge
+palworld_player_count 1.0
+# HELP palworld_player Palworld player information
+# TYPE palworld_player gauge
+palworld_player{name="vince",player_uid="11111111",steam_id="2222222"} 1.0
+# HELP palworld_server Palworld server information
+# TYPE palworld_server gauge
+palworld_server{name="My Palworld",version="0.1.4.0"} 1.0
+# HELP palworld_up Was last scrape of Palworld metrics successful
+# TYPE palworld_up gauge
+palworld_up 1.0
+# HELP palworld_player_save_count Number of player save files
+# TYPE palworld_player_save_count gauge
+palworld_player_save_count 3.0
+```
+
 # Visualization (Grafana)
 
 If you already have a Promtheus + Grafana monitoring setup, you can integrate the metris for some pretty graphs. Here is a screenshot of some very basic graphs of each metric using two different Palworld servers:
