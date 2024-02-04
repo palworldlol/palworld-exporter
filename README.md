@@ -14,6 +14,7 @@ This project contains a [Prometheus Exporter](https://prometheus.io/docs/instrum
 |------|-------------|--------|-------------|
 | `palworld_player_count` | The current number of players on given server | no extra labels | Gauge |
 | `palworld_player` | A player currently logged into the server | Character name, Player UID, and Steam ID | Gauge |
+| `palworld_server` | Server Information | Server name, Version | Gauge |
 | `palworld_up` | Indicator if last metric scrape was successful | no extra labels | Gauge |
 | `palworld_player_save_count` | Number of player save files on disk. Only included if `--save-directory` specified. | no extra labels | Gauge |
 
