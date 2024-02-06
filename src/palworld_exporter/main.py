@@ -1,12 +1,14 @@
 import logging
 from threading import Event
+
 import click
 from click_loglevel import LogLevel
-from prometheus_client import start_http_server, REGISTRY, PROCESS_COLLECTOR, GC_COLLECTOR, PLATFORM_COLLECTOR
+from prometheus_client import (GC_COLLECTOR, PLATFORM_COLLECTOR,
+                               PROCESS_COLLECTOR, REGISTRY, start_http_server)
 
+from palworld_exporter.collectors.rcon_collector import (RCONCollector,
+                                                         RCONContext)
 from palworld_exporter.collectors.save_collector import SaveCollector
-from palworld_exporter.collectors.rcon_collector import RCONContext, RCONCollector
-
 
 # Unregister default/built-in Python collectors
 # https://prometheus.github.io/client_python/collector/#disabling-default-collector-metrics
@@ -45,6 +47,7 @@ def main(rcon_host: str,
 
     # Wait forever
     Event().wait()
+
 
 if __name__ == "__main__":
     try:

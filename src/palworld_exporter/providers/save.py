@@ -1,13 +1,15 @@
 import os
-from glob import glob 
+from glob import glob
+
 
 class SaveCountProvider:
     """
     Get the number of save files on disk in the Players save directory.
     """
+
     def __init__(self, save_directory: str):
         self._save_directory = save_directory
-    
+
     def fetch(self) -> int:
         players_save_path = os.path.join(self._save_directory, "Players")
         # Ensure Players directory exists

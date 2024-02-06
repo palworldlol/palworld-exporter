@@ -1,11 +1,13 @@
-from rcon import Console
-from palworld_exporter.providers.rcon import PlayersProvider, RCONContext, ServerInfoProvider
+from unittest.mock import patch
+
+from palworld_exporter.providers.rcon import (PlayersProvider, RCONContext,
+                                              ServerInfoProvider)
+
 
 class FakeRCONContext(RCONContext):
     def __init__(self):
         pass
 
-from unittest.mock import patch
 
 @patch('palworld_exporter.providers.rcon.PlayersProvider._cmd_showplayers')
 def test_PlayersProvider(mock_showplayers):
@@ -14,12 +16,14 @@ def test_PlayersProvider(mock_showplayers):
     players = pp.fetch()
     assert len(players) == 1
 
+
 @patch('palworld_exporter.providers.rcon.PlayersProvider._cmd_showplayers')
 def test_PlayersProvider_NoPlayers(mock_showplayers):
     mock_showplayers.return_value = 'name,steamid,playerUid\n\n'
     pp = PlayersProvider(FakeRCONContext(), True)
     players = pp.fetch()
     assert len(players) == 0
+
 
 @patch('palworld_exporter.providers.rcon.PlayersProvider._cmd_showplayers')
 def test_PlayersProvider_Korean(mock_showplayers):
@@ -31,12 +35,14 @@ def test_PlayersProvider_Korean(mock_showplayers):
     assert len(players) == 1
     assert name == players[0].name
 
+
 @patch('palworld_exporter.providers.rcon.PlayersProvider._cmd_showplayers')
 def test_PlayersProvider_EmptyResponse(mock_showplayers):
     mock_showplayers.return_value = None
     pp = PlayersProvider(FakeRCONContext(), True)
     players = pp.fetch()
     assert len(players) == 0
+
 
 @patch('palworld_exporter.providers.rcon.ServerInfoProvider._cmd_info')
 def test_ServerInfoProvider(mock_info):

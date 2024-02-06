@@ -1,4 +1,3 @@
-import csv
 import logging
 import re
 from typing import Iterable
@@ -50,6 +49,7 @@ class RCONCollector(Collector):
         except Exception as e:
             logging.exception(e)
         finally:
-            up_metric = GaugeMetricFamily('palworld_up', 'Was the last scrape of RCON successful', int(success))
+            up_metric = GaugeMetricFamily(
+                'palworld_up', 'Was the last scrape of RCON successful', int(success))
             result.append(up_metric)
             return result

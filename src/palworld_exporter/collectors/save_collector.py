@@ -1,5 +1,4 @@
-from glob import glob
-import os
+import logging
 from typing import Iterable
 
 from prometheus_client import CollectorRegistry, Metric
@@ -18,5 +17,5 @@ class SaveCollector(CollectorRegistry):
             save_count_metric = GaugeMetricFamily('palworld_save_count', 'Number of player save files',
                                                   save_count)
             yield save_count_metric
-        except:
-            pass
+        except Exception as e:
+            logging.warn(e)
