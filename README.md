@@ -134,6 +134,8 @@ palworld_player_save_count 3.0
 
 # Visualization (Grafana)
 
-If you already have a Promtheus + Grafana monitoring setup, you can integrate the metris for some pretty graphs. Here is a screenshot of some very basic graphs of each metric using two different Palworld servers:
+If you already have a Promtheus + Grafana monitoring setup, you can integrate the metris for some pretty graphs. Here is a very basic Grafana dashboard you can import: https://grafana.com/grafana/dashboards/20421-palworld/
+
+Here is a screenshot of some very basic graphs of each metric using two different Palworld servers:
 
 ![Grafana Screenshot](./grafana.png)
