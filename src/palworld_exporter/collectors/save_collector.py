@@ -1,16 +1,22 @@
 from glob import glob
 import os
+from typing import Iterable
+
+from prometheus_client import CollectorRegistry, Metric
+from prometheus_client.metrics_core import GaugeMetricFamily
+
+from palworld_exporter.providers.save import SaveCountProvider
 
 
-class SaveCollector:
+class SaveCollector(CollectorRegistry):
     def __init__(self, save_directory: str):
-        self.save_directory = save_directory
+        self._save_provider = SaveCountProvider(save_directory)
 
-    def player_save_count(self) -> int:
-        players_save_path = os.path.join(self.save_directory, "Players")
-        # Ensure Players directory exists
-        if not os.path.exists(players_save_path):
-            raise FileNotFoundError(
-                f'Player saves directory does not exist in: {self.save_directory}')
-        player_saves = glob(os.path.join(players_save_path, '*.sav'))
-        return len(player_saves)
+    def collect(self) -> Iterable[Metric]:
+        try:
+            save_count = self._save_provider.fetch()
+            save_count_metric = GaugeMetricFamily('palworld_save_count', 'Number of player save files',
+                                                  save_count)
+            yield save_count_metric
+        except:
+            pass
