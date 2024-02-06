@@ -31,8 +31,6 @@ Options:
                                   localhost]
   --rcon-port INTEGER             RCON Port  [default: 25575]
   --rcon-password TEXT            RCON password  [default: (None)]
-  --poll-interval INTEGER         How often to poll Palworld Server (seconds)
-                                  [default: 5]
   --listen-address TEXT           Hostname or IP Address for exporter to
                                   listen on  [default: 0.0.0.0]
   --listen-port INTEGER           Port for exporter to listen on  [default:
@@ -51,7 +49,6 @@ Environment Variables are also available for each option above:
 - `RCON_HOST`
 - `RCON_PORT`
 - `RCON_PASSWORD`
-- `POLL_INTERVAL`
 - `LISTEN_ADDRESS`
 - `LISTEN_PORT`
 - `SAVE_DIRECTORY`
