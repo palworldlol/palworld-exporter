@@ -25,12 +25,16 @@ class RCONContext(ContextManager):
         self._port = port
         self._password = password
         self._timeout = timeout
+        self._first_connection_made = False
 
     def _get_console(self):
         return Console(self._host, self._password, self._port, self._timeout)
 
     def __enter__(self) -> Console:
         self._console = self._get_console()
+        if not self._first_connection_made:
+            logging.info('RCON Connection success')
+            self._first_connection_made = True
         logging.debug('RCON collector opened connection')
         return self._console
 
