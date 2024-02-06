@@ -50,4 +50,4 @@ def test_ServerInfoProvider(mock_info):
     sip = ServerInfoProvider(FakeRCONContext())
     serverInfo = sip.fetch()
     assert serverInfo.version == '0.1.4.0'
-    assert serverInfo.name == ' http://palworld.lol 1 | OPEN 24/7 Dedicated'
+    assert serverInfo.name == 'http://palworld.lol 1 | OPEN 24/7 Dedicated'

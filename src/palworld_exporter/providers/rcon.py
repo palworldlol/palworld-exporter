@@ -101,7 +101,7 @@ class ServerInfoProvider(RCONProvider[ServerInfo]):
 
     def __init__(self, rcon_ctx: RCONContext):
         self._rcon_ctx = rcon_ctx
-        self._info_re = re.compile(r"\[v(?P<version>.*?)\](?P<name>.*$)")
+        self._info_re = re.compile(r"\[v(?P<version>.*?)\] (?P<name>.*$)")
 
     def _cmd_info(self):
         with self._rcon_ctx as conn:
@@ -112,7 +112,7 @@ class ServerInfoProvider(RCONProvider[ServerInfo]):
         info = self._info_re.search(info_resp)
         if info:
             version = info.group("version")
-            name = info.group("name")
+            name = info.group("name").strip()
             return ServerInfo(name, version)
         else:
             logging.warn('No response from Info RCON command')
