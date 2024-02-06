@@ -14,6 +14,7 @@ This project contains a [Prometheus Exporter](https://prometheus.io/docs/instrum
 |------|-------------|--------|-------------|
 | `palworld_player_count` | The current number of players on given server | no extra labels | Gauge |
 | `palworld_player` | A player currently logged into the server | Character name, Player UID, and Steam ID | Gauge |
+| `palworld_server` | Server Information | Server name, Version | Gauge |
 | `palworld_up` | Indicator if last metric scrape was successful | no extra labels | Gauge |
 | `palworld_player_save_count` | Number of player save files on disk. Only included if `--save-directory` specified. | no extra labels | Gauge |
 
@@ -110,6 +111,25 @@ services:
          - ADMIN_PASSWORD=top-secret
       volumes:
          - ./palworld:/palworld/:z
+```
+
+# Example metric output
+```
+# HELP palworld_player_count Current player count
+# TYPE palworld_player_count gauge
+palworld_player_count 1.0
+# HELP palworld_player Palworld player information
+# TYPE palworld_player gauge
+palworld_player{name="vince",player_uid="11111111",steam_id="2222222"} 1.0
+# HELP palworld_server Palworld server information
+# TYPE palworld_server gauge
+palworld_server{name="My Palworld",version="0.1.4.0"} 1.0
+# HELP palworld_up Was last scrape of Palworld metrics successful
+# TYPE palworld_up gauge
+palworld_up 1.0
+# HELP palworld_player_save_count Number of player save files
+# TYPE palworld_player_save_count gauge
+palworld_player_save_count 3.0
 ```
 
 # Visualization (Grafana)
