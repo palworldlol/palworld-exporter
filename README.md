@@ -67,7 +67,7 @@ Below is the command to run straight with docker (podman works too!).
 *NOTE*: You will need to make sure the exporter can reach the Palworld server you wish to monitor.
 
 ```
-docker run -e RCON_HOST=palworld -e RCON_PASSWORD=topsecrt --rm -it docker.io/bostrt/palworld-exporter
+docker run -e RCON_HOST=palworld -e RCON_PASSWORD=topsecrt -p 9877:9877 --rm -it docker.io/bostrt/palworld-exporter
 ```
 
 ## Docker Compose
