@@ -87,7 +87,7 @@ services:
     restart: unless-stopped
     container_name: exporter
     ports:
-      - 9000:9000/tcp
+      - 9877:9877/tcp
     depends_on:
       - palworld
     environment:
