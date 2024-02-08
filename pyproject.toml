@@ -49,7 +49,7 @@ dependencies = [ # Optional
 
 [project.optional-dependencies]
 dev = ["check-manifest"]
-test = ["flake8", "coverage"]
+test = ["flake8", "coverage", "pytest", "pyfakefs"]
 
 [project.urls]
 "Homepage" = "https://github.com/bostrt/palworld-exporter"

@@ -17,6 +17,9 @@ This project contains a [Prometheus Exporter](https://prometheus.io/docs/instrum
 | `palworld_server_info` | Server Information | Server name, Version | Gauge |
 | `palworld_up` | Indicator if last metric scrape was successful | no extra labels | Gauge |
 | `palworld_player_save_count` | Number of player save files on disk. Only included if `--save-directory` specified. | no extra labels | Gauge |
+| `palworld_player_save_size_bytes` | File size of a player save file in bytes | filename and player UID | Gauge
+| `palworld_player_save_mtime` | Last modified time of a player save file | filename and player UID | Gauge
+| `palworld_level_save_size_bytes` | File size of Level.sav in bytes | no extra labels | Gauge
 
 *For more information of [Gauges see here](https://prometheus.io/docs/concepts/metric_types/#gauge).*
 
@@ -112,21 +115,39 @@ services:
 
 # Example metric output
 ```
-# HELP palworld_player_count Current player count
-# TYPE palworld_player_count gauge
-palworld_player_count 1.0
-# HELP palworld_player Palworld player information
-# TYPE palworld_player gauge
-palworld_player{name="vince",player_uid="11111111",steam_id="2222222"} 1.0
 # HELP palworld_server_info Palworld server information
 # TYPE palworld_server_info gauge
-palworld_server_info{name="My Palworld Server",version="0.1.4.0"} 1.0
-# HELP palworld_up Was last scrape of Palworld metrics successful
+palworld_server_info{name="My Palworld",version="0.1.4.1"} 1.0
+# HELP palworld_player_count Current player count
+# TYPE palworld_player_count gauge
+palworld_player_count 2.0
+# HELP palworld_player Palworld player information
+# TYPE palworld_player gauge
+palworld_player{name="vince",player_uid="326323370",steam_id="2222222"} 1.0
+palworld_player{name="shlomi",player_uid="1965487011",steam_id="333333"} 1.0
+# HELP palworld_player Palworld player information
+# TYPE palworld_player gauge
+# HELP palworld_up Was the last scrape of RCON successful
 # TYPE palworld_up gauge
 palworld_up 1.0
+# HELP palworld_player_save_size_bytes File size of a player save file in bytes
+# TYPE palworld_player_save_size_bytes gauge
+palworld_player_save_size_bytes{filename="13734CAA000000000000000000000000.sav",player_uid="326323370"} 2638.0
+palworld_player_save_size_bytes{filename="37BE91CC000000000000000000000000.sav",player_uid="935236044"} 2663.0
+palworld_player_save_size_bytes{filename="7526F3A3000000000000000000000000.sav",player_uid="1965487011"} 4360.0
+palworld_player_save_size_bytes{filename="A1A9AEC2000000000000000000000000.sav",player_uid="2712252098"} 2786.0
+# HELP palworld_player_save_mtime Last modified time of a player save file
+# TYPE palworld_player_save_mtime gauge
+palworld_player_save_mtime{filename="13734CAA000000000000000000000000.sav",player_uid="326323370"} 1.707372037e+09
+palworld_player_save_mtime{filename="37BE91CC000000000000000000000000.sav",player_uid="935236044"} 1.707372041e+09
+palworld_player_save_mtime{filename="7526F3A3000000000000000000000000.sav",player_uid="1965487011"} 1.707372047e+09
+palworld_player_save_mtime{filename="A1A9AEC2000000000000000000000000.sav",player_uid="2712252098"} 1.707372051e+09
 # HELP palworld_player_save_count Number of player save files
 # TYPE palworld_player_save_count gauge
-palworld_player_save_count 3.0
+palworld_player_save_count 4.0
+# HELP palworld_level_save_size_bytes File size of Level.sav in bytes
+# TYPE palworld_level_save_size_bytes gauge
+palworld_level_save_size_bytes 7.711697e+06
 ```
 
 # Visualization (Grafana)

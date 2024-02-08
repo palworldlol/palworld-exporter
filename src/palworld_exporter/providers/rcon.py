@@ -6,7 +6,7 @@ from typing import ContextManager, Generic, List, TypeVar
 
 from rcon import Console
 
-from palworld_exporter.collectors.data import Player, ServerInfo
+from palworld_exporter.providers.data import Player, ServerInfo
 
 
 class RCONContext(ContextManager):
