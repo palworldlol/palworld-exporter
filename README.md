@@ -7,7 +7,11 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/bostrt/palworld-exporter?logo=docker)
 ![GitHub License](https://img.shields.io/github/license/palworldlol/palworld-exporter)
 
+Here is a screenshot of what's possible to graph using metrics from this exporter. This is for two different Palworld servers:
 
+![Grafana Screenshot](grafana.png)
+
+---
 This project contains a [Prometheus Exporter](https://prometheus.io/docs/instrumenting/exporters/) for [Palworld](https://store.steampowered.com/app/1623730/Palworld/) servers to monitor the following metrics:
 
 | name | description | labels | metric type |
@@ -152,8 +156,4 @@ palworld_level_save_size_bytes 7.711697e+06
 
 # Visualization (Grafana)
 
-If you already have a Promtheus + Grafana monitoring setup, you can integrate the metris for some pretty graphs. Here is a very basic Grafana dashboard you can import: https://grafana.com/grafana/dashboards/20421-palworld/
-
-Here is a screenshot of some very basic graphs of each metric using two different Palworld servers:
-
-![Grafana Screenshot](./grafana.png)
+If you already have a Promtheus + Grafana monitoring setup, you can integrate the metris for some pretty graphs. Here is a very basic Grafana dashboard you can import: https://grafana.com/grafana/dashboards/20421-palworld/.
