@@ -9,6 +9,7 @@ from prometheus_client import (GC_COLLECTOR, PLATFORM_COLLECTOR,
 from palworld_exporter.collectors.rcon_collector import (RCONCollector,
                                                          RCONContext)
 from palworld_exporter.collectors.save_meta_collector import SaveFileCollector
+from palworld_exporter.collectors.util import find_save_directory
 
 # Unregister default/built-in Python collectors
 # https://prometheus.github.io/client_python/collector/#disabling-default-collector-metrics
@@ -40,10 +41,16 @@ def main(rcon_host: str,
                         level=log_level)
 
     # Register all the collectors
+    if save_directory:
+        try:
+            actual_save_dir = find_save_directory(save_directory)
+            REGISTRY.register(SaveFileCollector(actual_save_dir))
+        except Exception as e:
+            logging.error(e)
+            return
+
     rcon_ctx = RCONContext(rcon_host, rcon_port, rcon_password)
     REGISTRY.register(RCONCollector(rcon_ctx, ignore_logging_in))
-    if save_directory:
-        REGISTRY.register(SaveFileCollector(save_directory))
     start_http_server(port=listen_port, addr=listen_address)
 
     logging.info(f'Listening on {listen_address}:{listen_port}')
