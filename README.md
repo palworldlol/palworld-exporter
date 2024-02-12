@@ -7,7 +7,7 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/bostrt/palworld-exporter?logo=docker)
 ![GitHub License](https://img.shields.io/github/license/palworldlol/palworld-exporter)
 
-Here is a screenshot of what's possible to graph using metrics from this exporter. This is for two different Palworld servers:
+Here is a screenshot of what's possible to graph using metrics from this exporter. This Grafana dashboard can be [downloaded here](https://grafana.com/grafana/dashboards/20421-palworld/).
 
 ![Grafana Screenshot](grafana.png)
 
@@ -43,7 +43,7 @@ Options:
   --listen-port INTEGER           Port for exporter to listen on  [default:
                                   9877]
   --save-directory DIRECTORY      Path to directory contain all .sav files
-                                  (e.g. Pal/Saved/SaveGames/0/2FCD4.../)
+                                  (e.g. Pal/Saved/SaveGames)
   --log-level [NOTSET|DEBUG|INFO|WARNING|ERROR|CRITICAL]
                                   Set logging level  [default: INFO]
   --ignore-logging-in             Ignore players actively logging in that
@@ -62,6 +62,7 @@ Environment Variables are also available for each option above:
 - `LOG_LEVEL`
 - `IGNORE_LOGGING_IN`
 
+
 # Run as Container
 
 ## Just Docker
@@ -71,7 +72,7 @@ Below is the command to run straight with docker (podman works too!).
 *NOTE*: You will need to make sure the exporter can reach the Palworld server you wish to monitor.
 
 ```
-docker run -e RCON_HOST=palworld -e RCON_PASSWORD=topsecrt -p 9877:9877 --rm -it docker.io/bostrt/palworld-exporter
+docker run -e RCON_HOST=palworld -e RCON_PASSWORD=topsecrt -e SAVE_DIRECTORY=/palworld -v ./palworld:/palworld:z,ro -p 9877:9877 --rm -it docker.io/bostrt/palworld-exporter
 ```
 
 ## Docker Compose
@@ -83,6 +84,7 @@ Here is an EXAMPLE docker compose file that uses a https://github.com/thijsvanlo
 - Notice the `RCON_PASSWORD` and `ADMIN_PASSWORD` match. 
 - Notice the exporter references `palworld`, the name of the Docker compose service.
 - Notice the `RCON_PORT` in both services match.
+- Lastly, the `palworld` volume is used in both containers.
 
 ```yaml
 services:
@@ -98,6 +100,9 @@ services:
       - RCON_HOST=palworld
       - RCON_PORT=25575
       - RCON_PASSWORD=top-secret
+      - SAVE_DIRECTORY=/palworld
+    volumes:
+      - ./palworld:/palworld/:z,ro
   palworld:
       image: docker.io/thijsvanloef/palworld-server-docker:latest
       container_name: palworld-server
@@ -153,7 +158,3 @@ palworld_player_save_count 4.0
 # TYPE palworld_level_save_size_bytes gauge
 palworld_level_save_size_bytes 7.711697e+06
 ```
-
-# Visualization (Grafana)
-
-If you already have a Promtheus + Grafana monitoring setup, you can integrate the metris for some pretty graphs. Here is a very basic Grafana dashboard you can import: https://grafana.com/grafana/dashboards/20421-palworld/.
