@@ -6,12 +6,13 @@ from glob import glob
 server_name_re = re.compile(r'^DedicatedServerName=(?P<name>.*?)$')
 
 
-def find_server_name(filename: str) -> str | None:
+def find_server_name(filename: str) -> str:
     with open(filename, 'r') as f:
         for line in f.readlines():
             m = server_name_re.search(line)
             if m:
                 return m.group("name")
+    return ""
 
 
 def find_save_directory(starting_dir: str) -> str:
@@ -45,6 +46,8 @@ def find_save_directory(starting_dir: str) -> str:
                 return save_path[0]
             else:
                 raise ValueError("Error automatically finding save directory")
+        else:
+            raise ValueError("GameUserSettings.ini found but it contains no DedicatedServerName")
     elif len(result) == 0:
         raise FileNotFoundError("No GameUserSettings.ini found")
     elif len(result) > 1:
