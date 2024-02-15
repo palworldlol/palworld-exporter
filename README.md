@@ -29,29 +29,7 @@ This project contains a [Prometheus Exporter](https://prometheus.io/docs/instrum
 
 # Options
 
-```shell
-$ palworld_exporter --help
-Usage: palworld_exporter [OPTIONS]
-
-Options:
-  --rcon-host TEXT                RCON hostname or IP address  [default:
-                                  localhost]
-  --rcon-port INTEGER             RCON Port  [default: 25575]
-  --rcon-password TEXT            RCON password  [default: (None)]
-  --listen-address TEXT           Hostname or IP Address for exporter to
-                                  listen on  [default: 0.0.0.0]
-  --listen-port INTEGER           Port for exporter to listen on  [default:
-                                  9877]
-  --save-directory DIRECTORY      Path to directory contain all .sav files
-                                  (e.g. Pal/Saved/SaveGames)
-  --log-level [NOTSET|DEBUG|INFO|WARNING|ERROR|CRITICAL]
-                                  Set logging level  [default: INFO]
-  --ignore-logging-in             Ignore players actively logging in that
-                                  temporarily have no Player UID
-  --help                          Show this message and exit.
-```
-
-Environment Variables are also available for each option above:
+Environment Variables are available:
 
 - `RCON_HOST`
 - `RCON_PORT`
@@ -62,6 +40,9 @@ Environment Variables are also available for each option above:
 - `LOG_LEVEL`
 - `IGNORE_LOGGING_IN`
 
+# Run normally with Pip package
+
+*TODO*
 
 # Run as Container
 
