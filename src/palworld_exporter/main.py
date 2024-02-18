@@ -27,6 +27,7 @@ REGISTRY.unregister(GC_COLLECTOR)
 @click.option('--save-directory', default=None, envvar='SAVE_DIRECTORY', help='Path to directory contain all .sav files (e.g. Pal/Saved/SaveGames)', show_default='None', type=click.Path(exists=True, dir_okay=True, file_okay=False))
 @click.option('--log-level', type=LogLevel(), default='INFO', help='Set logging level', envvar='LOG_LEVEL', show_default=True)
 @click.option('--ignore-logging-in', is_flag=True, default=True, envvar='IGNORE_LOGGING_IN', help='Ignore players actively logging in that temporarily have no Player UID')
+@click.option('--version', is_flag=True, default=False, help='Print version of palworld-exporter and exit')
 def main(rcon_host: str,
          rcon_port: int,
          rcon_password: str,
@@ -34,7 +35,13 @@ def main(rcon_host: str,
          listen_port: int,
          save_directory: str,
          log_level: int,
-         ignore_logging_in: bool):
+         ignore_logging_in: bool,
+         version: bool):
+    
+    if version:
+        from palworld_exporter import __version__
+        click.echo(__version__)
+        return
 
     logging.basicConfig(format='%(asctime)s.%(msecs)03d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
                         datefmt='%Y-%m-%d:%H:%M:%S',
