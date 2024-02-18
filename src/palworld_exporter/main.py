@@ -37,7 +37,7 @@ def main(rcon_host: str,
          log_level: int,
          ignore_logging_in: bool,
          version: bool):
-    
+
     if version:
         from palworld_exporter import __version__
         click.echo(__version__)
